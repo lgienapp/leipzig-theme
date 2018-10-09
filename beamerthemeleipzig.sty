@@ -1,0 +1,671 @@
+%---------------------------------------------------------------------
+% Name           : beamerthemeleipzig.sty
+% Author         : Lukas Gienapp
+% Version        : 1.0
+% Created on     : 02.04.2018
+% Last Edited on : 04.10.2018
+% License        : This file may be distributed and/or modified under 
+%				   the GNU Public License.
+% Description    : Beamer theme that complies with the corporate 
+%                  design of the Leipzig University, with a few 
+%                  modifications to fit beamer. It is partly based on the 
+%                  HSRM theme by Benjamin Weiss 
+%                  (https://github.com/hsrmbeamertheme/hsrmbeamertheme)
+%---------------------------------------------------------------------
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%                         Structure                              %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Setup
+%   - Basic
+%   - Requirements
+%   - Package options
+% Fonts
+%   - Specification
+%   - Titlepage
+%   - Header & Footer
+%   - Section
+%   - Thankspage
+%   - Content
+%   - Captions
+%   - Footnotes
+%   - Description
+%   - Itemization
+% Colors
+%   - Base colors
+%   - Base styles
+%   - Palettes
+%   - Frame title
+%   - Title page
+%   - Thanks page
+%   - Header & Footer
+%   - Blocks
+%   - Frame Number
+%   - Footnotes
+%   - Description
+%   - Itemization
+%   - Bibliography
+% Inner Theme
+%   - Definitions
+%   - Thanks page
+%   - Section page
+%   - Title page
+%   - Itemize
+%   - Description
+%   - Enumeration
+%   - Blocks
+%   - Figures
+%   - Tables
+%   - Footnotes
+%   - Captions
+% Outer Theme
+%   - Head line
+%   - Foot line
+%   - Frame title
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%                           Setup                                %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%---------------------------------------------------------------------
+% Basic
+%---------------------------------------------------------------------
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamerthemeleipzig}[2018/04/04 Leipzig theme]
+
+%---------------------------------------------------------------------
+% Requirements
+%---------------------------------------------------------------------
+\RequirePackage{tikz}
+\RequirePackage{eso-pic}
+
+%---------------------------------------------------------------------
+% Package Options
+%---------------------------------------------------------------------
+\newif\if@doSans
+\@doSansfalse
+\DeclareOption{noserifmath}{\@doSanstrue}
+\newif\if@doSectionPage
+\@doSectionPagefalse
+\DeclareOption{nosectionpages}{\@doSectionPagetrue}
+\ProcessOptions
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%                             Fonts                              %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%---------------------------------------------------------------------
+% Specification
+%---------------------------------------------------------------------
+\if@doSans%
+	% sans serif math %
+	\usepackage[no-math]{fontspec}%	
+	\setmainfont{Arial}%
+\else%
+	% serif math %
+	\usepackage{fontspec}%	
+	\usefonttheme[onlymath]{serif}%
+\fi%
+	\newfontfamily\Light{Arial}%
+	\newfontfamily\Bold{Arial-Bold}%
+	\setsansfont{Arial}%
+\renewcommand\UrlFont{\Bold}%
+
+%---------------------------------------------------------------------
+% Titlepage
+%---------------------------------------------------------------------
+\setbeamerfont{title}{family=\Bold,size=\LARGE}%
+\setbeamerfont{subtitle}{family=\Light,size=\large}%
+\setbeamerfont{date}{size=\normalsize}%
+\setbeamerfont{author}{size=\normalsize}%
+\setbeamerfont{institute}{size=\normalsize}%
+
+%---------------------------------------------------------------------
+% Header & Footer
+%---------------------------------------------------------------------
+\setbeamerfont{header title}{family=\Bold, size=\scriptsize}%
+\setbeamerfont{header subtitle}{family=\Light, size=\scriptsize}%
+\setbeamerfont{footer}{family=\Light, size=\scriptsize}%
+\setbeamerfont{frame number}{family=\Light, size=\scriptsize}%
+
+%---------------------------------------------------------------------
+% Section
+%---------------------------------------------------------------------
+\setbeamerfont{section title}{size=\LARGE}%
+
+%---------------------------------------------------------------------
+% Thankspage
+%---------------------------------------------------------------------
+\setbeamerfont{thanks title}{family=\Bold,size=\Large}%
+\setbeamerfont{thanks author}{family=\Bold,size=\large}%
+\setbeamerfont{thanks text}{family=\Light,size=\normalsize}%
+
+%---------------------------------------------------------------------
+% Content
+%---------------------------------------------------------------------
+\setbeamerfont{frame title}{family=\Bold,size=\Large}%
+\setbeamerfont{block title}{family=\Bold,size=\large}%
+\setbeamerfont{block title alerted}{family=\Bold,size=\large}%
+\setbeamerfont{alerted text}{family=\Bold}%
+
+%---------------------------------------------------------------------
+% Captions
+%---------------------------------------------------------------------
+\setbeamerfont{caption name}{family=\Bold}%
+
+%---------------------------------------------------------------------
+% Footnotes
+%---------------------------------------------------------------------
+\setbeamerfont{footnote}{family=\Light, size=\scriptsize}%
+
+%---------------------------------------------------------------------
+% Description
+%---------------------------------------------------------------------
+\setbeamerfont{description item}{family=\Bold, size=\normalsize}%
+
+%---------------------------------------------------------------------
+% Itemization
+%---------------------------------------------------------------------
+\setbeamerfont{itemization item}{family=\Light, size=\normalsize}%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%                             Colors                             %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%---------------------------------------------------------------------
+% Base Colors
+%---------------------------------------------------------------------
+\definecolor{leipzigDarkRed}{RGB}{176,47,44}%
+\definecolor{leipzigLightRed}{RGB}{214,66,66}%
+\definecolor{leipzigLightBlue}{RGB}{138,194,209}%
+\definecolor{leipzigLightGrey}{RGB}{201,201,201}%
+\definecolor{leipzigDarkGrey}{RGB}{38,42,49}%
+
+%---------------------------------------------------------------------
+% Base Styles
+%---------------------------------------------------------------------
+\setbeamercolor{normal text}{fg=leipzigDarkGrey,bg=}%
+\setbeamercolor{structure}{fg=leipzigDarkGrey,bg=}%
+\setbeamercolor{alerted text}{fg=leipzigDarkRed,bg=}%
+\setbeamercolor{example text}{fg=leipzigLightBlue,bg=}%
+
+%---------------------------------------------------------------------
+% Palettes
+%---------------------------------------------------------------------
+\setbeamercolor{palette primary}{fg=leipzigDarkGrey,bg=}%
+\setbeamercolor{palette secondary}{fg=leipzigDarkGrey,bg=leipzigLightGrey}%
+\setbeamercolor{palette tertiary}{fg=leipzigDarkRed,bg=leipzigLightGrey}%
+\setbeamercolor{palette quaternary}{fg=white, bg=leipzigDarkGrey}%
+
+%---------------------------------------------------------------------
+% Frame Title
+%---------------------------------------------------------------------
+\setbeamercolor{frame title}{parent = palette primary}%
+
+%---------------------------------------------------------------------
+% Titlepage
+%---------------------------------------------------------------------
+\setbeamercolor{title}{parent=normal text}%
+\setbeamercolor{subtitle}{parent=normal text}%
+\setbeamercolor{institute}{parent=normal text}%
+
+%---------------------------------------------------------------------
+% Thankspage
+%---------------------------------------------------------------------
+\setbeamercolor{thankstitle}{parent=normal text}%
+\setbeamercolor{thankstext}{parent=normal text}%
+
+%---------------------------------------------------------------------
+% Header & Footer
+%---------------------------------------------------------------------
+\setbeamercolor{headline}{parent=palette primary}%
+\setbeamercolor{footline}{parent=palette primary}%
+
+%---------------------------------------------------------------------
+% Blocks
+%---------------------------------------------------------------------
+\setbeamercolor{block title}{bg = leipzigLightGrey,fg = leipzigDarkGrey}%
+\setbeamercolor{block body}{bg = leipzigLightGrey!40,fg = leipzigDarkGrey}%
+\setbeamercolor{block title alerted}{bg = leipzigDarkRed,fg = white}%
+\setbeamercolor{block title example}{bg = leipzigLightBlue,fg = leipzigDarkGrey}%
+\setbeamercolor{block body alerted}{bg = leipzigDarkRed!40,fg = leipzigDarkGrey}%
+\setbeamercolor{block body example}{bg = leipzigLightBlue!40,fg = leipzigDarkGrey}%
+
+%---------------------------------------------------------------------
+% Frame Number
+%---------------------------------------------------------------------
+\setbeamercolor{frame number}{fg = leipzigDarkRed, bg=}%
+
+%---------------------------------------------------------------------
+% Footnotes
+%---------------------------------------------------------------------
+\setbeamercolor{footnote}{fg=leipzigDarkGrey!70, bg=}%
+
+%---------------------------------------------------------------------
+% Description
+%---------------------------------------------------------------------
+\setbeamercolor{description item}{fg=leipzigDarkRed,bg=}%
+
+%---------------------------------------------------------------------
+% Itemization
+%---------------------------------------------------------------------
+\setbeamercolor{itemize item}{fg=leipzigDarkRed,bg=}%
+\setbeamercolor{itemize subitem}{fg=leipzigDarkRed,bg=}%
+\setbeamercolor{itemize subsubitem}{fg=leipzigDarkRed,bg=}%
+
+%---------------------------------------------------------------------
+% Bibliography
+%---------------------------------------------------------------------
+\setbeamercolor{bibliography entry author}{fg=, bg=}%
+\setbeamercolor{bibliography entry title}{fg=, bg=}%
+\setbeamercolor{bibliography entry location}{fg=, bg=}%
+\setbeamercolor{bibliography entry note}{fg=, bg=}%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%                         Inner theme                            %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%---------------------------------------------------------------------
+% Definitions
+%---------------------------------------------------------------------
+\def\beamer@leipzig@location{}%
+\newcommand{\location}[1]{\def\beamer@leipzig@location{#1}}% 
+\def\beamer@leipzig@thankstitle{Vielen Dank!}%
+\newcommand{\thankstitle}[1]{\def\beamer@leipzig@thankstitle{#1}}%
+\def\beamer@leipzig@address{}%
+\newcommand{\address}[1]{\def\beamer@leipzig@address{#1}}% 
+\def\beamer@leipzig@email{}%
+\newcommand{\email}[1]{\def\beamer@leipzig@email{#1}}% 
+\def\beamer@leipzig@phone{}%
+\newcommand{\phone}[1]{\def\beamer@leipzig@phone{#1}}% 
+\def\beamer@leipzig@website{www.uni-leipzig.de}%
+\newcommand{\website}[1]{\def\beamer@leipzig@website{#1}}% 
+
+%---------------------------------------------------------------------
+% Thanks Page
+%---------------------------------------------------------------------
+\newcommand{\makethanks}{%
+	\ifbeamer@inframe\thankspage%
+    \else%
+    	{%
+			\AddToShipoutPictureBG*{%
+        	    \hbox to \paperwidth{%
+        	        \hfill
+            	    \resizebox{!}{\paperheight}{%
+                  		\begin{tikzpicture}
+                        	\path [fill=leipzigDarkRed] (14.4,0)--(16,9)--(16,0)--cycle;
+                            \path [fill=leipzigLightBlue] (10.5,0)--(16,0)--(16,3)--cycle;
+                            \path [clip] (14.4,0)--(16,9)--(16,0)--cycle;
+                            \path [fill=leipzigLightRed] (10.5,0)--(16,0)--(16,3)--cycle;
+                        \end{tikzpicture}
+                    }%
+                    \hspace{-.35cm} % Get rid of right margin on BG 
+                }%
+            }%
+    		\frame[plain]{\thankspage}
+        }%
+    \fi%
+}%
+\newcommand{\thankspage}{\usebeamertemplate{thankspage}}
+\setbeamertemplate{thankspage}{%
+    \begin{minipage}[c][\paperheight]{.75\paperwidth}
+        \vbox to .25\paperheight{\vfill\hbox{\hspace{-8mm}\includegraphics[height=20mm]{logo}}\vfill}%
+    	\vbox to .75\paperheight{
+        	\vfill
+    		\ifx\beamer@leipzig@thankstitle\@empty%
+    		\else%
+    			{\usebeamerfont{thanks title}\usebeamercolor[fg]{title}\MakeUppercase{\beamer@leipzig@thankstitle}\par}%
+    			\vspace*{3ex}
+    		\fi%
+            \ifx\insertauthor\@empty%
+    		\else%
+    			{\usebeamerfont{thanks author}\usebeamercolor[fg]{thanks text}\insertauthor\par}%
+    		\fi%
+            \ifx\insertinstitute\@empty%
+            	\vspace*{2ex}
+    		\else%
+    			{\usebeamerfont{thanks text}\usebeamercolor[fg]{thanks text}\insertinstitute\par}%
+                \vspace*{2ex}
+    		\fi%
+            \ifx\beamer@leipzig@address\@empty%
+    		\else%
+    			{\usebeamerfont{thanks text}\usebeamercolor[fg]{thanks text}\beamer@leipzig@address\par}%
+    		\fi%
+            \ifx\beamer@leipzig@phone\@empty%
+            	\vspace*{2ex}
+    		\else%
+    			{\usebeamerfont{thanks text}\usebeamercolor[fg]{thanks text}\beamer@leipzig@phone\par}%
+    			\vspace*{2ex}
+            \fi%
+            \ifx\beamer@leipzig@email\@empty%
+    		\else%
+    			{\usebeamerfont{thanks text}\usebeamercolor[fg]{thanks text}\href{mailto:\beamer@leipzig@email}{\beamer@leipzig@email}\par}%
+    		\fi%
+            \ifx\beamer@leipzig@website\@empty%
+    		\else%
+    			{\usebeamerfont{thanks text}\usebeamercolor[fg]{thanks text}\href{\beamer@leipzig@website}{\beamer@leipzig@website}\par}%
+    		\fi%
+        \vfill}%
+    \end{minipage}
+}
+
+%---------------------------------------------------------------------
+% Section Page
+%---------------------------------------------------------------------
+\setbeamertemplate{headline}{%
+     \begin{beamercolorbox}[
+        wd=\textwidth,ht=4ex,
+        dp=1.5ex,
+        rightskip=1cm
+    ]{headerline}%
+            \ifx\insertsectionhead\@empty%
+                \rule[.5\ht\strutbox]{0.8cm}{0.6pt}\hspace{1mm}
+    		    \usebeamerfont{header title}\insertshorttitle\hfill
+    		\else%
+    		    \rule[.5\ht\strutbox]{0.8cm}{0.6pt}\hspace{1mm}
+    		    \usebeamerfont{header title}
+    			\insertshorttitle
+    			\hspace{1mm}
+    			\usebeamerfont{header subtitle}|
+    			\hspace{1mm}
+    			\insertsectionhead\hfill
+    		\fi%
+    \end{beamercolorbox}%
+    \vspace*{-4ex}%
+}%
+
+%---------------------------------------------------------------------
+% Title Page
+%---------------------------------------------------------------------
+\renewcommand{\maketitle}{%
+	\ifbeamer@inframe\titlepage
+    \else%
+    	{%
+			\AddToShipoutPictureBG*{%
+        	    \hbox to \paperwidth{
+        	        \hfill
+            	    \resizebox{!}{\paperheight}{%
+                  		\begin{tikzpicture}
+                        	\path [fill=leipzigDarkRed] (14.4,0)--(16,9)--(16,0)--cycle;
+                            \path [fill=leipzigLightBlue] (10.5,0)--(16,0)--(16,3)--cycle;
+                            \path [clip] (14.4,0)--(16,9)--(16,0)--cycle;
+                            \path [fill=leipzigLightRed] (10.5,0)--(16,0)--(16,3)--cycle;
+                        \end{tikzpicture}
+                    }
+                    \hspace{-.35cm}
+                }
+            }
+    		\frame[plain]{\titlepage}
+        }
+    \fi%
+}
+\renewcommand{\titlepage}{\usebeamertemplate{titlepage}}
+\setbeamertemplate{titlepage}{%
+    \begin{minipage}[c][\paperheight]{.75\paperwidth}
+        \vbox to .25\paperheight{\vfill\hbox{\hspace{-8mm}\includegraphics[height=20mm]{logo}}\vfill}%
+    	\vbox to .75\paperheight{
+    	    \vfill
+    		\ifx\insertsubtitle\@empty%
+    		\else%
+    			{%
+    			    \usebeamerfont{subtitle}
+    			    \usebeamercolor[fg]{subtitle}
+    			    \insertsubtitle\par
+    			}%
+    			\vspace*{1ex}
+    		\fi%
+    		\ifx\insertsubtitle\@empty%
+   			\else%
+    			{%
+    			    \usebeamerfont{title}
+    			    \usebeamercolor[fg]{title}
+    			    \inserttitle\par
+    			}%
+    			\vspace*{4ex}
+   			\fi%
+    		\ifx \beamer@leipzig@location\@empty%
+    		\else%
+    			{%
+    			    \usebeamerfont{institute}
+    			    \usebeamercolor[fg]{institute}
+    			    \beamer@leipzig@location, 
+    			}%
+    		\fi%
+    		\ifx\insertdate\@empty%
+    		\else%
+    			{%
+    			    \usebeamerfont{date}
+    			    \usebeamercolor[fg]{date}
+    			    \insertdate\par
+    			}%
+    		\fi% 
+    		\ifx\insertauthor\@empty%
+    		\else%
+    			{%
+    			    \usebeamerfont{author}
+    			    \usebeamercolor[fg]{author}
+    			    \insertauthor\par
+    			}%
+    			\vspace*{2ex}
+    		\fi%
+    		\ifx\inserttitlegraphic\@empty%
+    		\else%
+    			\includegraphics[height=.8cm]{\inserttitlegraphic}
+    		\fi%
+        \vfill
+    	}%
+    \end{minipage}
+}
+
+%---------------------------------------------------------------------
+% Itemize
+%---------------------------------------------------------------------
+\setbeamertemplate{itemize item}{–}
+\setbeamertemplate{itemize subitem}{-}
+\setbeamertemplate{itemize subsubitem}{\textbullet}
+\setlength{\parskip}{0.5em}
+
+%---------------------------------------------------------------------
+% Description
+%---------------------------------------------------------------------
+% Intentionally blank
+
+%---------------------------------------------------------------------
+% Enumeration
+%---------------------------------------------------------------------
+% Intentionally blank
+
+%---------------------------------------------------------------------
+% Blocks
+%---------------------------------------------------------------------
+\newlength{\beamer@leipzig@blocksep}
+\newlength{\beamer@leipzig@blockdp}
+\newlength{\beamer@leipzig@blockleftskip}
+\newlength{\beamer@leipzig@blockrightskip}
+\setlength{\beamer@leipzig@blocksep}{0.5ex}
+\setlength{\beamer@leipzig@blockdp}{0.6ex}
+\setlength{\beamer@leipzig@blockrightskip}{0.5ex}
+\setlength{\beamer@leipzig@blockleftskip}{0.5ex}
+
+% Basic block
+\setbeamertemplate{block begin}{%
+  \setbeamercolor{item}{parent=block body}
+  \par\vskip\medskipamount%
+  \begin{beamercolorbox}[
+        sep=\beamer@leipzig@blocksep,
+        dp=\beamer@leipzig@blockdp,
+        leftskip=\beamer@leipzig@blockleftskip,
+        rightskip=\beamer@leipzig@blockrightskip
+    ]{block title}
+    \usebeamerfont*{block title}\insertblocktitle%
+    \end{beamercolorbox}%
+    {\parskip0pt\par}%
+    {\nointerlineskip\vskip-0.5pt}%
+    \usebeamerfont{block body}%
+    \begin{beamercolorbox}[
+        sep=\beamer@leipzig@blocksep,
+        dp=\beamer@leipzig@blockdp,
+        leftskip=\beamer@leipzig@blockleftskip,
+        rightskip=\beamer@leipzig@blockrightskip,
+        vmode
+    ]{block body}%
+}
+\setbeamertemplate{block end}{%
+    \end{beamercolorbox}\vskip\smallskipamount
+}
+
+% Alerted Block
+\setbeamertemplate{block alerted begin}{%
+    \setbeamercolor{item}{parent=block body alerted}
+    \par\vskip\medskipamount%
+    \begin{beamercolorbox}[
+        sep=\beamer@leipzig@blocksep,
+        dp=\beamer@leipzig@blockdp,
+        leftskip=\beamer@leipzig@blockleftskip,
+        rightskip=\beamer@leipzig@blockrightskip
+    ]{block title alerted}
+        \usebeamerfont*{block title alerted}\insertblocktitle%
+    \end{beamercolorbox}%
+    {\parskip0pt\par}%
+    {\nointerlineskip\vskip-0.5pt}%
+    \usebeamerfont{block body alerted}%
+    \begin{beamercolorbox}[
+        sep=\beamer@leipzig@blocksep,
+        dp=\beamer@leipzig@blockdp,
+        leftskip=\beamer@leipzig@blockleftskip,
+        rightskip=\beamer@leipzig@blockrightskip,
+        vmode
+    ]{block body alerted}%
+}%
+\setbeamertemplate{block alerted end}{%
+    \end{beamercolorbox}\vskip\smallskipamount
+}%
+
+% Example block
+\setbeamertemplate{block example begin}{%
+    \par\vskip\medskipamount%
+    \begin{beamercolorbox}[
+        sep=\beamer@leipzig@blocksep,
+        dp=\beamer@leipzig@blockdp,
+        leftskip=\beamer@leipzig@blockleftskip,
+        rightskip=\beamer@leipzig@blockrightskip
+    ]{block title example}
+        \usebeamerfont*{block title example}\insertblocktitle%
+    \end{beamercolorbox}%
+    {\parskip0pt\par}%
+    {\nointerlineskip\vskip-0.5pt}%
+    \usebeamerfont{block body example}%
+    \begin{beamercolorbox}[
+        sep=\beamer@leipzig@blocksep,
+        dp=\beamer@leipzig@blockdp,
+        leftskip=\beamer@leipzig@blockleftskip,
+        rightskip=\beamer@leipzig@blockrightskip,
+        vmode
+    ]{block body example}%
+}%
+\setbeamertemplate{block example end}{%
+    \end{beamercolorbox}\vskip\smallskipamount
+}%
+
+%---------------------------------------------------------------------
+% Figures
+%---------------------------------------------------------------------
+% Intentionally blank
+	
+%---------------------------------------------------------------------
+% Tables
+%---------------------------------------------------------------------
+% Intentionally blank
+	
+%---------------------------------------------------------------------
+% Footnotes
+%---------------------------------------------------------------------
+\setbeamertemplate{footnote}{%
+ 	\parindent 0em\noindent%
+ 	\raggedright
+ 	\usebeamerfont{footnote}
+ 	\usebeamercolor{footnote mark}
+ 	\hbox to 0.8em{\hfil\insertfootnotemark}
+ 	\usebeamercolor{footnote text}
+ 	\insertfootnotetext\par%
+ 	\vspace{0.75cm}
+}
+
+%---------------------------------------------------------------------
+% Captions
+%---------------------------------------------------------------------
+\setbeamertemplate{caption label separator}{: }
+\setbeamertemplate{caption}[numbered]
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%                         Outer theme                            %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%---------------------------------------------------------------------
+% Headline
+%---------------------------------------------------------------------
+\setbeamertemplate{headline}{%
+     \begin{beamercolorbox}[
+        wd=\textwidth,ht=4ex,
+        dp=1.5ex,
+        rightskip=1cm
+    ]{headerline}%
+            \ifx\insertsectionhead\@empty%
+                \rule[.5\ht\strutbox]{0.8cm}{0.6pt}\hspace{1mm}
+    		    \usebeamerfont{header title}\insertshorttitle\hfill
+    		\else%
+    		    \rule[.5\ht\strutbox]{0.8cm}{0.6pt}\hspace{1mm}
+    		    \usebeamerfont{header title}
+    			\insertshorttitle
+    			\hspace{1mm}
+    			\usebeamerfont{header subtitle}|
+    			\hspace{1mm}
+    			\insertsectionhead\hfill
+    		\fi%
+    \end{beamercolorbox}%
+    \vspace*{-4ex}%
+}%
+
+%---------------------------------------------------------------------
+% Footline
+%---------------------------------------------------------------------
+\usenavigationsymbolstemplate{}
+\setbeamertemplate{footline}{%
+    \begin{beamercolorbox}[
+        wd=\textwidth,
+        ht=4ex,dp=1.5ex,
+        leftskip=1cm,
+        rightskip=1cm
+    ]{footer}%
+    \usebeamerfont{footer}
+    \vbox{
+        \hbox to 0.99\linewidth{\textcolor{leipzigDarkRed}{\rule{0.98\linewidth}{0.6pt}\hfill}}%
+        \vspace{1mm}%
+        \hbox to 0.99\linewidth{
+            %\includegraphics[height=5mm]{wordmark.pdf} 
+            \insertinstitute
+       	    \hfill
+       	    %\textcolor{leipzigDarkRed}{\insertframenumber\,/\,\inserttotalframenumber} % optional
+       	    \textcolor{leipzigDarkRed}{\insertframenumber}
+            \hspace{.001\linewidth}
+       }%
+    }%
+    \end{beamercolorbox}%
+}
+
+%---------------------------------------------------------------------
+% Frame Title
+%---------------------------------------------------------------------
+\setbeamertemplate{frametitle}{%
+    \begin{beamercolorbox}[
+        wd=\paperwidth,
+        leftskip=1cm,
+        rightskip=1cm,
+        ht=5ex,dp=1.5ex
+    ]{frame title}%
+    	\usebeamerfont{frame title}\insertframetitle%
+    \end{beamercolorbox}%
+}
+
+\mode
+<all>

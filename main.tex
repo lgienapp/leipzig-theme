@@ -1,0 +1,229 @@
+\documentclass[noserifmath,aspectratio=169]{beamer}
+
+\usetheme{leipzig}
+
+\usepackage{booktabs}
+
+\newcommand{\themename}{\textbf{leipzig}~}
+
+\title[Leipzig]{Leipzig}
+\subtitle[Beamer Theme]{Beamer theme}
+\author{Author}
+\institute{Institute}
+\date{\today}
+\titlegraphic{}
+\location{Leipzig}
+\thankstitle{Thank You!}
+\address{Beethovenstraße 15, 04107 Leipzig}
+\email{example@uni-leipzig.de}
+\phone{+49 1234 5678910}
+%\website{}
+
+\begin{document}
+
+\maketitle
+
+\begin{frame}{Table of contents}
+  \setbeamertemplate{section in toc}[sections numbered]
+  \tableofcontents[hideallsubsections]
+\end{frame}
+
+\section{Introduction}
+
+\begin{frame}[fragile]{Leipzig}
+The \themename theme is a Beamer theme that complies with the corporate design of the Leipzig University.
+
+Enable the theme by loading
+\begin{verbatim}
+    \documentclass{beamer}
+    \usetheme{leipzig}
+\end{verbatim}
+
+Note that this package only works with XeTeX/XeLaTeX.
+\end{frame}
+
+\section{Elements}
+\begin{frame}[fragile]{Package Options}
+\begin{description}
+\item[\texttt{noserifmath}] displays math using Arial
+\item[\texttt{nosectionpages}] hides section pages.
+\end{description}
+The theme is suitable for 16:9 as well as 4:3 aspect ratios.
+\end{frame}
+
+\begin{frame}[fragile]{Title Page Macros}
+The usual title page macros such as author, date, title and subtitle are supported.
+Additional options include:
+\begin{itemize}
+\item short title for use in the header: \verb+\title[short title]{long title}+ (analogous for subtitle)
+\item institution for use in the footer: \\ \verb+\institute{institution}+
+\item additional graphics on the title page: \\ \verb+\titlegraphic{filename}+
+\item location of the talk: \verb+\location{location}+
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]{Thanks Page Macros}
+A ``Thank You!''-Page can be displayed using \verb+\makethanks+. The displayed information can be specified using:
+\begin{itemize}
+\item \verb+\thankstitle{}+ for a customized thank-you text, default is ``Vielen Dank''
+\item \verb+\address{}+ 
+\item \verb+\email{}+
+\item \verb+\phone{}+
+\item \verb+\website{}+ - default is \texttt{www.uni-leipzig.de}, leave empty to disable
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Typography}
+\begin{verbatim}
+You can \emph{emphasize} text, \alert{accent} 
+parts or show \textbf{bold} results.
+\end{verbatim}
+\begin{center}becomes\end{center}
+You can \emph{emphasize} text, \alert{accent} parts or show \textbf{bold} results.\footnote{Footnotes work as well.}
+\end{frame}
+
+\begin{frame}{Font features}
+  \begin{itemize}
+    \item Regular
+    \item \textit{Italic}
+    \item \textbf{Bold}
+    \item \textbf{\textit{Bold Italic}}
+    \item \texttt{Monospace}
+    \item \texttt{\textit{Monospace Italic}}
+    \item \texttt{\textbf{Monospace Bold}}
+    \item \texttt{\textbf{\textit{Monospace Bold Italic}}}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Lists}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.33\textwidth}
+      Items
+      \begin{itemize}
+        \item Item \item Item \item Item
+      \end{itemize}
+
+    \column{0.33\textwidth}
+      Enumerations
+      \begin{enumerate}
+        \item First \item Second  \item Last
+      \end{enumerate}
+
+    \column{0.33\textwidth}
+      Descriptions
+      \begin{description}
+        \item[Caption] Text 
+        \item[Caption] Text
+        \item[Caption] Text
+      \end{description}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Figures}
+  \begin{figure}
+    \begin{tikzpicture}[scale=1]
+    \colorlet{col1}{alerted text.fg!80}
+    \colorlet{col2}{alerted text.fg!60}
+    \colorlet{col3}{alerted text.fg!40}
+    \colorlet{col4}{alerted text.fg!20}
+   	\draw [help lines] (-4.25,-1.25) grid (4.25,1.5);
+   	\draw [help lines,step=0.25cm] (-2.99,0) grid (2.99,0.99);
+
+   \begin{scope}[smooth,draw=gray!20,y=0.3989422804cm]
+        \filldraw [fill=col3] plot[id=f1,domain=-3:-2] function {exp(-x*x/2)}
+            -- (-2,0) -- (-3,0) -- cycle;
+        \filldraw [fill=col2] plot[id=f2,domain=-2:-1] function {exp(-x*x/2)}
+            -- (-1,0) -- (-2,0) -- cycle;
+        \filldraw [fill=col1] plot[id=f3,domain=-1:0]  function {exp(-x*x/2)}
+            -- (0,0)  -- (-1,0) -- cycle;
+        \filldraw [fill=col1] plot[id=f4,domain=0:1] function {exp(-x*x/2)}
+            -- (1,0)  --  (0,0) -- cycle;
+        \filldraw [fill=col2] plot[id=f5,domain=1:2] function {exp(-x*x/2)}
+            -- (2,0)  -- (1,0) -- cycle;
+        \filldraw [fill=col3] plot[id=f6,domain=2:3] function {exp(-x*x/2)}
+            -- (3,0)  -- (2,0) -- cycle;
+        \draw[black] plot[id=f7,domain=-4.25:4.25,samples=100]
+            function {exp(-x*x/2)};
+   \end{scope}
+       \draw[->] (-4.25,0) -- (4.25,0) node [right] {$x$};
+
+    \foreach \pos/\label in {-3/$-3\sigma$,-2/$-2\sigma$,-1/$-\sigma$,
+            1/$\sigma$,2/$2\sigma$,3/$3\sigma$}
+        \draw (\pos,0) -- (\pos,-0.1) (\pos cm,-3ex) node
+            [anchor=base,fill=white,inner sep=1pt]  {\label};
+
+    \draw (-0.1,1) -- (.1,1) node [right,fill=white,inner sep=1pt] {$\sigma$};
+
+    \foreach \pos/\percent/\height in {1/34/0.5,2/14/0.25,3/2/0.125,4/0.1/0.1}
+    {
+      \node[text=col\pos,anchor=base,yshift=2pt,xshift=-0.625cm,
+        inner sep=1pt] at (\pos,\height) {$\percent\%$};
+      \node[text=col\pos,anchor=base,yshift=2pt,xshift=.625cm,
+        inner sep=1pt]  at (-\pos,\height) {$\percent\%$};
+    }
+\end{tikzpicture}
+    \caption{Standard deviation from \href{http://texample.net/tikz/examples/standard-deviation/}{texample.net}.}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Tables}
+  \begin{table}
+    \caption{Largest cities in the world (source: Wikipedia)}
+    \begin{tabular}{@{} lr @{}}
+      \toprule
+      City & Population\\
+      \midrule
+      Mexico City & 20,116,842\\
+      Shanghai & 19,210,000\\
+      Peking & 15,796,450\\
+      Istanbul & 14,160,467\\
+      \bottomrule
+    \end{tabular}
+  \end{table}
+\end{frame}
+
+\begin{frame}{Blocks}
+  	Three different block environments are pre-defined.
+    \begin{block}{Default}
+        Block content.
+    \end{block}
+
+      \begin{alertblock}{Alert}
+        Block content.
+      \end{alertblock}
+
+      \begin{exampleblock}{Example}
+        Block content.
+      \end{exampleblock}
+\end{frame}
+
+\begin{frame}{Math}
+  \begin{equation*}
+    \frac{1}{\sigma\sqrt{2\pi}}\exp\biggl(\frac{-x^2}{2\sigma^2}\biggr)
+  \end{equation*}
+\end{frame}
+
+\begin{frame}[fragile]{Citations}
+For a general introduction to creating slides with Beamer, refer to the Beamer manual.\cite{BeamerManual}
+To split your bibliography into multiple frames, use the \verb+[allowframebreaks]+ option.
+\end{frame}
+
+\makethanks
+
+\section{References}
+\begin{frame}[allowframebreaks]
+    \bibliographystyle{plain}
+	\bibliography{bibliography.bib}
+\end{frame}
+
+\section{Appendix}
+\begin{frame}{Appendix}
+    Things that differ in the \LaTeX~ version compared to the original \texttt{.pptx} style:
+        \begin{itemize}
+            \item the footer does not include the university wordmark, as a vector-based graphic file of such is not obtainable from the university
+            \item the frame titles are not converted to uppercase, as this introduces a bug with the \texttt{[allowframebreaks]} option
+        \end{itemize}
+\end{frame}
+
+\end{document}
