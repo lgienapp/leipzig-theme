@@ -301,7 +301,7 @@
                     \hspace{-.35cm} % Get rid of right margin on BG 
                 }%
             }%
-    		\frame[plain]{\thankspage}
+    		\frame[plain,noframenumbering]{\thankspage}
         }%
     \fi%
 }%
@@ -351,27 +351,35 @@
 %---------------------------------------------------------------------
 % Section Page
 %---------------------------------------------------------------------
-\setbeamertemplate{headline}{%
-     \begin{beamercolorbox}[
-        wd=\textwidth,ht=4ex,
-        dp=1.5ex,
-        rightskip=1cm
-    ]{headerline}%
-            \ifx\insertsectionhead\@empty%
-                \rule[.5\ht\strutbox]{0.8cm}{0.6pt}\hspace{1mm}
-    		    \usebeamerfont{header title}\insertshorttitle\hfill
-    		\else%
-    		    \rule[.5\ht\strutbox]{0.8cm}{0.6pt}\hspace{1mm}
-    		    \usebeamerfont{header title}
-    			\insertshorttitle
-    			\hspace{1mm}
-    			\usebeamerfont{header subtitle}|
-    			\hspace{1mm}
-    			\insertsectionhead\hfill
-    		\fi%
-    \end{beamercolorbox}%
-    \vspace*{-4ex}%
-}%
+\newcommand{\insertsectionHEAD}{%
+	\expandafter\insertsectionHEADaux\insertsectionhead}
+	\newcommand{\insertsectionHEADaux}[3]{\MakeUppercase{#3}
+}
+
+\if@doSectionPage\@empty% 
+\else%
+	\AtBeginSection[]{%
+  	    \AddToShipoutPictureBG*{%
+    	    \hbox to \paperwidth{
+    	        \hfill
+        	    \resizebox{!}{\paperheight}{%
+              		\begin{tikzpicture}
+	        			\path [fill=leipzigDarkRed] (10,9)--(16,9)--(16,0)--(14,0)--cycle;
+	        			\path [fill=leipzigLightBlue] (10.6,0)--(16,0)--(16,9)--(14.6,9)--cycle;
+	        			\path [clip] (10,9)--(16,9)--(16,0)--(14,0)--cycle;
+	        			\path [fill=leipzigLightRed] (10.6,0)--(16,0)--(16,9)--(14.6,9)--cycle;
+	        			\path [fill=leipzigDarkRed] (15,0)--(16,0)--(16,2.25)--cycle;
+	        		\end{tikzpicture}
+                }
+                \hspace{-.35cm}
+            }
+        }
+    	\begin{frame}[plain]
+    		\vbox to \paperheight{\vfil\hbox{\usebeamerfont{section title}{\insertsectionHEAD}}\vfil}%
+    	\end{frame}
+	}
+\fi%
+
 
 %---------------------------------------------------------------------
 % Title Page
@@ -394,7 +402,7 @@
                     \hspace{-.35cm}
                 }
             }
-    		\frame[plain]{\titlepage}
+    		\frame[plain,noframenumbering]{\titlepage}
         }
     \fi%
 }
