@@ -82,6 +82,9 @@
 %---------------------------------------------------------------------
 % Package Options
 %---------------------------------------------------------------------
+\newif\if@doSans
+\@doSansfalse
+\DeclareOption{noserifmath}{\@doSanstrue}
 \newif\if@doSectionPage
 \@doSectionPagefalse
 \DeclareOption{nosectionpages}{\@doSectionPagetrue}
@@ -91,10 +94,27 @@
 %%%                             Fonts                              %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %---------------------------------------------------------------------
+% Specification
+%---------------------------------------------------------------------
+\if@doSans%
+	% sans serif math %
+	\usepackage[no-math]{fontspec}%	
+	\setmainfont{Arial}%
+\else%
+	% serif math %
+	\usepackage{fontspec}%	
+	\usefonttheme[onlymath]{serif}%
+\fi%
+	\newfontfamily\Light{Arial}%
+	\newfontfamily\Bold{Arial-Bold}%
+	\setsansfont{Arial}%
+\renewcommand\UrlFont{\Bold}%
+
+%---------------------------------------------------------------------
 % Titlepage
 %---------------------------------------------------------------------
-\setbeamerfont{title}{size=\LARGE}%
-\setbeamerfont{subtitle}{size=\large}%
+\setbeamerfont{title}{family=\Bold,size=\LARGE}%
+\setbeamerfont{subtitle}{family=\Light,size=\large}%
 \setbeamerfont{date}{size=\normalsize}%
 \setbeamerfont{author}{size=\normalsize}%
 \setbeamerfont{institute}{size=\normalsize}%
@@ -102,10 +122,10 @@
 %---------------------------------------------------------------------
 % Header & Footer
 %---------------------------------------------------------------------
-\setbeamerfont{header title}{size=\scriptsize}%
-\setbeamerfont{header subtitle}{size=\scriptsize}%
-\setbeamerfont{footer}{size=\scriptsize}%
-\setbeamerfont{frame number}{size=\scriptsize}%
+\setbeamerfont{header title}{family=\Bold, size=\scriptsize}%
+\setbeamerfont{header subtitle}{family=\Light, size=\scriptsize}%
+\setbeamerfont{footer}{family=\Light, size=\scriptsize}%
+\setbeamerfont{frame number}{family=\Light, size=\scriptsize}%
 
 %---------------------------------------------------------------------
 % Section
@@ -115,37 +135,37 @@
 %---------------------------------------------------------------------
 % Thankspage
 %---------------------------------------------------------------------
-\setbeamerfont{thanks title}{size=\Large}%
-\setbeamerfont{thanks author}{size=\large}%
-\setbeamerfont{thanks text}{size=\normalsize}%
+\setbeamerfont{thanks title}{family=\Bold,size=\Large}%
+\setbeamerfont{thanks author}{family=\Bold,size=\large}%
+\setbeamerfont{thanks text}{family=\Light,size=\normalsize}%
 
 %---------------------------------------------------------------------
 % Content
 %---------------------------------------------------------------------
-\setbeamerfont{frame title}{size=\Large}%
-\setbeamerfont{block title}{size=\large}%
-\setbeamerfont{block title alerted}{size=\large}%
-\setbeamerfont{alerted text}{}%
+\setbeamerfont{frame title}{family=\Bold,size=\Large}%
+\setbeamerfont{block title}{family=\Bold,size=\large}%
+\setbeamerfont{block title alerted}{family=\Bold,size=\large}%
+\setbeamerfont{alerted text}{family=\Bold}%
 
 %---------------------------------------------------------------------
 % Captions
 %---------------------------------------------------------------------
-\setbeamerfont{caption name}{}%
+\setbeamerfont{caption name}{family=\Bold}%
 
 %---------------------------------------------------------------------
 % Footnotes
 %---------------------------------------------------------------------
-\setbeamerfont{footnote}{size=\scriptsize}%
+\setbeamerfont{footnote}{family=\Light, size=\scriptsize}%
 
 %---------------------------------------------------------------------
 % Description
 %---------------------------------------------------------------------
-\setbeamerfont{description item}{size=\normalsize}%
+\setbeamerfont{description item}{family=\Bold, size=\normalsize}%
 
 %---------------------------------------------------------------------
 % Itemization
 %---------------------------------------------------------------------
-\setbeamerfont{itemization item}{size=\normalsize}%
+\setbeamerfont{itemization item}{family=\Light, size=\normalsize}%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%                             Colors                             %%%
